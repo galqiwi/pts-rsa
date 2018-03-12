@@ -1,3 +1,16 @@
+#
+#   RSA KEYGEN BY MALINOVSKII VLADIMIR
+#
+
+from argparse import ArgumentParser
+from os import path
+
+parser = ArgumentParser()
+
+parser.add_argument("-k", "--key", dest="keyfile", default = (path.dirname(path.abspath(__file__)) + "/rsa"), help="path to key file")
+
+args = parser.parse_args()
+
 def egcd(a, b):
     if a == 0:
         return (0, 1)
@@ -22,8 +35,8 @@ q = 0xE800E0652FB7F23D1112B29A03866898CA92341D89182A46BE633C2C21468615
 
 keys = rsa_keygen(p, q)
 
-f_public = open('rsa.pub', 'w')
-f_private = open('rsa', 'w')
+f_public = open(args.keyfile + '.pub', 'w')
+f_private = open(args.keyfile, 'w')
 
 print(hex(keys['public'][0]), hex(keys['public'][1]), file=f_public)
 print(hex(keys['private'][0]), hex(keys['private'][1]), file=f_private)

@@ -1,3 +1,17 @@
+#
+#	RSA DECODER BY MALINOVSKII VLADIMIR
+#
+
+from argparse import ArgumentParser
+from os import path
+
+parser = ArgumentParser()
+
+parser.add_argument("-k", "--key", dest="keyfile", default = (path.dirname(path.abspath(__file__)) + "/rsa"), help="path to key file")
+parser.add_argument("-m", "--message", dest="msgfile", default = (path.dirname(path.abspath(__file__)) + "/msg"), help="path to message file")
+
+args = parser.parse_args()
+
 from sys import getdefaultencoding
 
 def power(msg, key, n):
@@ -10,11 +24,11 @@ def power(msg, key, n):
 		key = key >> 1
 	return out
 
-key = open('rsa', 'r')
+key = open(args.keyfile, 'r')
 
 n, d = [int(i, 16) for i in key.read().split(' ')]
 
-msg_f = open('msg', 'r')
+msg_f = open(args.msgfile, 'r')
 
 msg = int(msg_f.read(), 16)
 
