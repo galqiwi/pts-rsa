@@ -4,6 +4,7 @@
 
 from argparse import ArgumentParser
 from os import path
+import random
 
 parser = ArgumentParser()
 
@@ -30,8 +31,7 @@ def rsa_keygen(p, q):
 	d = modinv(e, fi)
 	return {'public':(n, e), 'private':(n, d)}
 
-p = 0xE306739D7FBD5F4DE81619FE0B3C7C049E1F60B593BB79BCECA6BF7C24275247
-q = 0xE800E0652FB7F23D1112B29A03866898CA92341D89182A46BE633C2C21468615
+p, q = [int(i, 16) for i in random.sample(open('primes', 'r').read().split('\n'), 2)]
 
 keys = rsa_keygen(p, q)
 

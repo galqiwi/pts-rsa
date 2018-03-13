@@ -14,13 +14,22 @@ args = parser.parse_args()
 
 from sys import getdefaultencoding
 
+def mult(a, b, n):
+	out = 0
+	while (b != 0):
+		if (b % 2 == 1):
+			out = (out + a) % n
+		a = (a << 1) % n
+		b = b >> 1
+	return out
+
 def power(msg, key, n):
 	# return (msg ** key) % n
 	out = 1
 	while (key != 0):
 		if (key % 2 == 1):
-			out = (out * msg) % n
-		msg = (msg * msg) % n
+			out = mult(out, msg, n)
+		msg = mult(msg, msg, n)
 		key = key >> 1
 	return out
 
