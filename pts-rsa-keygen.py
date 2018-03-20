@@ -23,12 +23,20 @@ def modinv(a, m):
     x, y = egcd(a, m)
     return x % m
 
+def gcd(x, y):
+    while y != 0:
+        (x, y) = (y, x % y)
+    return x
+
 def rsa_keygen(p, q):
 	n = p * q
-	fi = (p - 1) * (q - 1)
-	e = 65537
-	
-	d = modinv(e, fi)
+	phi = (p - 1) * (q - 1)
+	e = random.randint(p // 2, p)
+	while (gcd(e, phi) != 1):
+		e = e + 1
+
+	#print(e)
+	d = modinv(e, phi)
 	return {'public':(n, e), 'private':(n, d)}
 
 p, q = [int(i, 16) for i in random.sample(open('primes', 'r').read().split('\n'), 2)]
